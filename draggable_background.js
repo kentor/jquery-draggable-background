@@ -60,15 +60,10 @@
               , pos = $this.css('background-position').match(/(-?\d+).*?\s(-?\d+)/) || []
               , xPos = parseInt(pos[1]) || 0
               , yPos = parseInt(pos[2]) || 0
-              , xOffset = limit($this.width() - img.width, 0, xPos + x - x0, options.bounded)
-              , yOffset = limit($this.height() - img.height, 0, yPos + y - y0, options.bounded)
+              , xOffset = options.axis === 'y' ? xPos : limit($this.width() - img.width, 0, xPos + x - x0, options.bounded)
+              , yOffset = options.axis === 'x' ? yPos : limit($this.height() - img.height, 0, yPos + y - y0, options.bounded)
 
-            if (options.axis === 'x')
-              $this.css('background-position', xOffset + 'px ' + yPos + 'px')
-            else if (options.axis === 'y')
-              $this.css('background-position', xPos + 'px ' + yOffset + 'px')
-            else
-              $this.css('background-position', xOffset + 'px ' + yOffset + 'px')
+            $this.css('background-position', xOffset + 'px ' + yOffset + 'px')
 
             x0 = x
             y0 = y
