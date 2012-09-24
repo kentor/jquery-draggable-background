@@ -27,7 +27,7 @@ A jQuery plugin to make background images draggable.
 $('div').backgroundDraggable()
 
 // only draggable in the x direction, and image can loop 
-$('div').backgroundDraggable({ bounded: false, axis: 'x' })
+$('div').backgroundDraggable({ bound: false, axis: 'x' })
 ```
 
 ## Demo
