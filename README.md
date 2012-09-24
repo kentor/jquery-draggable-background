@@ -30,6 +30,9 @@ $('div').backgroundDraggable()
 $('div').backgroundDraggable({ bounded: false, axis: 'x' })
 ```
 
+## Demo
+http://kentor.github.com/jquery-draggable-background/
+
 ## Changelog
 
 v1.0 [2012-09-23]
@@ -40,4 +43,4 @@ v1.0 [2012-09-23]
 
 Copyright (c) 2012 Kenneth Chung
 
-Dual licensed under the [MIT](http://www.opensource.org/licenses/mit-license.php) and [GPL](http://www.gnu.org/licenses/gpl.html) licenses.
+Licensed under the [MIT](http://www.opensource.org/licenses/mit-license.php) license.
