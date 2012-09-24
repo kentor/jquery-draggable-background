@@ -8,7 +8,6 @@
  * Licensed under the MIT licenses:
  *   http://www.opensource.org/licenses/mit-license.php
  */
-
 !function($) {
 
   var $window = $(window)
@@ -31,9 +30,10 @@
     return this.each(function() {
       var $this = $(this)
         , $bg = $this.css('background-image')
+        , src = $bg.match(/^url\(['"]?(.*?)['"]?\)$/i)
 
-      // If no background-image css property just return
-      if (!$bg) return
+      // If no background-image css property or no src just return
+      if (!$bg || !src) return
 
       // Get the image's width and height if bounded
       var img = { width: 0, height: 0 }
@@ -43,33 +43,32 @@
           img.width = i.width
           img.height = i.height
         }
-        i.src = $bg.match(/^url\((.*?)\)$/i)[1]
+        i.src = src[1]
       }
 
       $this.on('mousedown.dbg', function(e) {
         if (e.which !== 1) return
 
-        var x0 = e.pageX
-          , y0 = e.pageY
+        var x0 = e.clientX
+          , y0 = e.clientY
           , pos = $this.css('background-position').match(/(-?\d+).*?\s(-?\d+)/) || []
           , xPos = parseInt(pos[1]) || 0
           , yPos = parseInt(pos[2]) || 0
 
+        // alert([$this.width(),img.width])
+
         $window.on('mousemove.dbg', function(e) {
-          var x = e.pageX
-            , y = e.pageY
+          var x = e.clientX
+            , y = e.clientY
 
           xPos = options.axis === 'y' ? xPos : limit($this.width()-img.width, 0, xPos+x-x0, options.bounded)
           yPos = options.axis === 'x' ? yPos : limit($this.height()-img.height, 0, yPos+y-y0, options.bounded)
-
-          $this.css('background-position', xPos + 'px ' + yPos + 'px')
-
           x0 = x
           y0 = y
 
+          $this.css('background-position', xPos + 'px ' + yPos + 'px')
           e.preventDefault()
         })
-
         e.preventDefault()
       })
 
