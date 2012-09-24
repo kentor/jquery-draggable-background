@@ -26,16 +26,15 @@
     , axis: false
     }, options)
 
-    var regexp = /(-?\d+).*?\s(-?\d+)/
-
     return this.each(function() {
       var $this = $(this)
+        , $bg = $this.css('background-image')
 
       // If no background-image css property just return
-      if (!$this.css('background-image')) return
+      if (!$bg) return
 
       // Get the src of the background-image
-      var src = $this.css('background-image').replace(/url\(|\)$/ig, "")
+      var src = $bg.replace(/url\(|\)$/ig, "")
 
       // Get the image's width and height if bounded
       var img = { width: 0, height: 0 }
@@ -58,7 +57,7 @@
           $this.on('mousemove.dbg', function(e) {
             var x = e.pageX
               , y = e.pageY
-              , pos = $this.css('background-position').match(regexp) || []
+              , pos = $this.css('background-position').match(/(-?\d+).*?\s(-?\d+)/) || []
               , xPos = parseInt(pos[1]) || 0
               , yPos = parseInt(pos[2]) || 0
               , xOffset = limit($this.width() - img.width, 0, xPos + x - x0, options.bounded)
