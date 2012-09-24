@@ -5,7 +5,7 @@
  *
  * Copyright (c) 2012 Kenneth Chung
  *
- * Licensed under the MIT licenses:
+ * Licensed under the MIT license:
  *   http://www.opensource.org/licenses/mit-license.php
  */
 !function($) {
@@ -23,7 +23,7 @@
 
   $.fn.backgroundDraggable = function(options) {
     var options = $.extend({
-      bounded: true
+      bound: true
     , axis: false
     }, options)
 
@@ -35,9 +35,9 @@
       // If no background-image css property or no src just return
       if (!$bg || !src) return
 
-      // Get the image's width and height if bounded
+      // Get the image's width and height if bound
       var img = { width: 0, height: 0 }
-      if (options.bounded) {
+      if (options.bound) {
         var i = new Image
         i.onload = function() {
           img.width = i.width
@@ -55,14 +55,12 @@
           , xPos = parseInt(pos[1]) || 0
           , yPos = parseInt(pos[2]) || 0
 
-        // alert([$this.width(),img.width])
-
         $window.on('mousemove.dbg', function(e) {
           var x = e.clientX
             , y = e.clientY
 
-          xPos = options.axis === 'y' ? xPos : limit($this.width()-img.width, 0, xPos+x-x0, options.bounded)
-          yPos = options.axis === 'x' ? yPos : limit($this.height()-img.height, 0, yPos+y-y0, options.bounded)
+          xPos = options.axis === 'y' ? xPos : limit($this.width()-img.width, 0, xPos+x-x0, options.bound)
+          yPos = options.axis === 'x' ? yPos : limit($this.height()-img.height, 0, yPos+y-y0, options.bound)
           x0 = x
           y0 = y
 
