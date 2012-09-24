@@ -12,12 +12,12 @@ A jQuery plugin to make background images draggable.
   <tr>
     <td>bounded</td>
     <td>Boolean</td>
-    <td>Whether dragging is bounded by the full image.</td>
+    <td>Whether dragging is bounded by the complete image or the image can loop.</td>
   </tr>
   <tr>
     <td>axis</td>
     <td>String</td>
-    <td>In which direction is dragging allowed.</td>
+    <td>In which direction is dragging activated.</td>
   </tr>
 </table>
 
@@ -27,7 +27,7 @@ A jQuery plugin to make background images draggable.
 $('div').backgroundDraggable()
 
 // only draggable in the x direction, and image can loop 
-$('div').backgroundDraggable({ bounded: false, axis: x })
+$('div').backgroundDraggable({ bounded: false, axis: 'x' })
 ```
 
 ## Changelog
