@@ -67,7 +67,11 @@
 
             x0 = x
             y0 = y
+
+            e.preventDefault()
           })
+
+          e.preventDefault()
         })
         .on('mouseup.dbg mouseleave.dbg', function() {
           $this.off('mousemove.dbg')
