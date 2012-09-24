@@ -1,3 +1,15 @@
+/**
+ * Draggable Background plugin for jQuery
+ *
+ * v1.0.0
+ *
+ * Copyright (c) 2012 Kenneth Chung
+ *
+ * Dual licensed under the MIT and GPL licenses:
+ *   http://www.opensource.org/licenses/mit-license.php
+ *   http://www.gnu.org/licenses/gpl.html
+ */
+
 !function($) {
   // Helper function to guarantee a value between low and hi
   var limit = function(low, hi, value, bool) {
