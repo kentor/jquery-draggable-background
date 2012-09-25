@@ -22,10 +22,7 @@
   }
 
   $.fn.backgroundDraggable = function(options) {
-    var options = $.extend({
-      bound: true
-    , axis: false
-    }, options)
+    var options = $.extend({}, $.fn.backgroundDraggable.defaults, options)
 
     return this.each(function() {
       var $this = $(this)
@@ -72,5 +69,10 @@
 
       $window.on('mouseup.dbg', function() { $window.off('mousemove.dbg') })
     })
+  }
+
+  $.fn.backgroundDraggable.defaults = {
+    bound: true
+  , axis: undefined
   }
 }(jQuery);
