@@ -56,8 +56,8 @@
           var x = e.clientX
             , y = e.clientY
 
-          xPos = options.axis === 'y' ? xPos : limit($this.width()-img.width, 0, xPos+x-x0, options.bound)
-          yPos = options.axis === 'x' ? yPos : limit($this.height()-img.height, 0, yPos+y-y0, options.bound)
+          xPos = options.axis === 'y' ? xPos : limit($this.innerWidth()-img.width, 0, xPos+x-x0, options.bound)
+          yPos = options.axis === 'x' ? yPos : limit($this.innerHeight()-img.height, 0, yPos+y-y0, options.bound)
           x0 = x
           y0 = y
 
