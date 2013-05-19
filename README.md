@@ -35,6 +35,9 @@ http://kentor.github.com/jquery-draggable-background/
 
 ## Changelog
 
+v1.1 [2013-05-19]
+- Touch support.
+
 v1.0 [2012-09-23]
 
 - Initial release.

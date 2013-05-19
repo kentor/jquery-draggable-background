@@ -1,7 +1,7 @@
 /**
  * Draggable Background plugin for jQuery
  *
- * v1.0.0
+ * v1.1.0
  *
  * Copyright (c) 2012 Kenneth Chung
  *
@@ -9,7 +9,6 @@
  *   http://www.opensource.org/licenses/mit-license.php
  */
 !function($) {
-
   var $window = $(window)
 
   // Helper function to guarantee a value between low and hi unless bool is false
@@ -19,6 +18,12 @@
       if (value > hi) return hi
     }
     return value
+  }
+
+  // Adds clientX and clientY properties to the jQuery's event object from touch
+  var modifyEventForTouch = function(e) {
+    e.clientX = e.originalEvent.touches[0].clientX
+    e.clientY = e.originalEvent.touches[0].clientY
   }
 
   $.fn.backgroundDraggable = function(options) {
@@ -43,8 +48,15 @@
         i.src = src[1]
       }
 
-      $this.on('mousedown.dbg', function(e) {
-        if (e.which !== 1) return
+      $this.on('mousedown.dbg touchstart.dbg', function(e) {
+        e.preventDefault()
+
+        if (e.originalEvent.touches) {
+          modifyEventForTouch(e)
+        }
+        else if (e.which !== 1) {
+          return
+        }
 
         var x0 = e.clientX
           , y0 = e.clientY
@@ -52,7 +64,13 @@
           , xPos = parseInt(pos[1]) || 0
           , yPos = parseInt(pos[2]) || 0
 
-        $window.on('mousemove.dbg', function(e) {
+        $window.on('mousemove.dbg touchmove.dbg', function(e) {
+          e.preventDefault()
+
+          if (e.originalEvent.touches) {
+            modifyEventForTouch(e)
+          }
+
           var x = e.clientX
             , y = e.clientY
 
@@ -62,12 +80,10 @@
           y0 = y
 
           $this.css('background-position', xPos + 'px ' + yPos + 'px')
-          e.preventDefault()
         })
-        e.preventDefault()
       })
 
-      $window.on('mouseup.dbg', function() { $window.off('mousemove.dbg') })
+      $window.on('mouseup.dbg touchend.dbg', function() { $window.off('mousemove.dbg touchmove.dbg') })
     })
   }
 
