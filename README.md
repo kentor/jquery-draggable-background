@@ -7,17 +7,20 @@ A jQuery plugin to make background images draggable.
   <tr>
     <th>Option</th>
     <th>Type</th>
+    <th>Known Values</th>
     <th>Description</th>
   </tr>
   <tr>
-    <td>bounded</td>
+    <td>bound</td>
     <td>Boolean</td>
-    <td>Whether dragging is bounded by the complete image or the image can loop.</td>
+    <td>true|false</td>
+    <td>Whether dragging is bounded by the edge of the image.</td>
   </tr>
   <tr>
     <td>axis</td>
     <td>String</td>
-    <td>In which direction is dragging activated.</td>
+    <td>x|y</td>
+    <td>If specified, restrict dragging along x or y axis.</td>
   </tr>
 </table>
 
