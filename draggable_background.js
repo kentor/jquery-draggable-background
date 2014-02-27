@@ -79,6 +79,12 @@
           x0 = x
           y0 = y
 
+          $this.trigger({
+            type: 'background_drag',
+            posX: xPos,
+            posY: yPos
+          })
+
           $this.css('background-position', xPos + 'px ' + yPos + 'px')
         })
       })
@@ -90,5 +96,11 @@
   $.fn.backgroundDraggable.defaults = {
     bound: true
   , axis: undefined
+  }
+  
+  $.fn.background_drag = function(data, callback) {
+    return arguments.length > 0 ?
+      this.on('background_drag', null, data, callback) :
+      this.trigger('background_drag');
   }
 }(jQuery);
