@@ -19,14 +19,18 @@
           , html = $this.html()
         $this.empty().append($('<p>').html(html))
       })
+
+      $('div').background_drag(function(e){
+        $(this).find("span").text(e.posX + 'px x ' + e.posY + 'px')
+      })
     })
   </script>
 </head>
 <body>
-  <div id="default" style="background:url('http://pipsum.com/640x480.jpg')">default</div>
-  <div id="unbounded" style="background:url('http://pipsum.com/640x480.jpg')">bound: false</div>
+  <div id="default" style="background:url('http://pipsum.com/640x480.jpg')">default | <span>0px x 0px</span></div>
+  <div id="unbounded" style="background:url('http://pipsum.com/640x480.jpg')">bound: false | <span>0px x 0px</span></div>
   <br><br>
-  <div id="x" style="background:url('http://pipsum.com/2560x240.jpg')">axis: 'x'</div>
-  <div id="y" style="background:url('http://pipsum.com/320x1600.jpg')">axis: 'y'</div>
+  <div id="x" style="background:url('http://pipsum.com/2560x240.jpg')">axis: 'x' | <span>0px x 0px</span></div>
+  <div id="y" style="background:url('http://pipsum.com/320x1600.jpg')">axis: 'y' | <span>0px x 0px</span></div>
 </body>
 </html>
