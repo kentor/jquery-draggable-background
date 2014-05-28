@@ -26,6 +26,26 @@
     e.clientY = e.originalEvent.touches[0].clientY
   }
 
+  var needsHorizontalScale = function(vp_dims, img_dims) {
+    var vp_ar  = vp_dims[0]  / vp_dims[1];
+    var img_ar = img_dims[0] / img_dims[1];
+
+    return (img_ar <= vp_ar);
+  };
+
+  var imageScaledDimensions = function(vp_dims, img_dims) {
+    var scale = 1;
+
+    if(needsHorizontalScale(vp_dims, img_dims)) {
+      scale = vp_dims[0]/img_dims[0];
+    }
+    else {
+      scale = vp_dims[1]/img_dims[1];
+    }
+
+    return [img_dims[0]*scale, img_dims[1]*scale];
+  };
+
   $.fn.backgroundDraggable = function(options) {
     var options = $.extend({}, $.fn.backgroundDraggable.defaults, options)
 
@@ -42,8 +62,16 @@
       if (options.bound) {
         var i = new Image
         i.onload = function() {
-          img.width = i.width
-          img.height = i.height
+          if($this.css("background-size") == "cover") {
+            var vp_dims = [$this.innerWidth(), $this.innerHeight()];
+            var scaled_dims = imageScaledDimensions(vp_dims, [i.width, i.height]);
+            img.width  = scaled_dims[0];
+            img.height = scaled_dims[1];
+          }
+          else {
+            img.width  = i.width
+            img.height = i.height
+          }
         }
         i.src = src[1]
       }
