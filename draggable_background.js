@@ -85,8 +85,8 @@
         i.src = src[1];
       }
 
-      this.bindMouseDown();
       this.bindMouseUp();
+      this.bindMouseDown();
     },
     bindMouseDown: function() {
       var $el = $(this.element), that = this;
@@ -131,12 +131,14 @@
     disable: function() {
       var $el = $(this.element);
       $el.off('mousedown.dbg touchstart.dbg');
+      $el.off('mousemove.dbg touchmove.dbg');
       $el.removeClass("draggable");
     }
   };
 
   $.fn.backgroundDraggable = function(options) {
     var options = options;
+    var args = Array.prototype.slice.call(arguments, 1);
 
     return this.each(function() {
       if((typeof options == "undefined") || (typeof options == "object")) {
@@ -146,7 +148,7 @@
       }
       else if ((typeof options == "string") && $(this).data("draggable-background")) {
         var p = $(this).data("draggable-background");
-        Plugin.prototype[options].apply(p);
+        Plugin.prototype[options].apply(p, args);
       }
     });
   };
