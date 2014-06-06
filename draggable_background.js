@@ -31,11 +31,11 @@
 
     return this.each(function() {
       var $this = $(this),
-          $bg = $this.css('background-image'),
-          src = $bg.match(/^url\(['"]?(.*?)['"]?\)$/i);
+          bgImage = $this.css('background-image'),
+          src = bgImage.match(/^url\(['"]?(.*?)['"]?\)$/i);
 
       // If no background-image css property or no src just return
-      if (!$bg || !src) return;
+      if (!bgImage || !src) return;
 
       // Get the image's width and height if bound
       var img = { width: 0, height: 0 };
