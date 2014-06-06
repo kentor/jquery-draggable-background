@@ -31,11 +31,9 @@
 
     return this.each(function() {
       var $this = $(this),
-          bgImage = $this.css('background-image'),
-          src = bgImage.match(/^url\(['"]?(.*?)['"]?\)$/i);
+          bgSrc = ($this.css('background-image').match(/^url\(['"]?(.*?)['"]?\)$/i) || [])[1];
 
-      // If no background-image css property or no src just return
-      if (!bgImage || !src) return;
+      if (!bgSrc) return;
 
       // Get the image's width and height if bound
       var img = { width: 0, height: 0 };
@@ -45,7 +43,7 @@
           img.width = i.width;
           img.height = i.height;
         };
-        i.src = src[1];
+        i.src = bgSrc;
       };
 
       $this.on('mousedown.dbg touchstart.dbg', function(e) {
