@@ -53,8 +53,7 @@
 
         if (e.originalEvent.touches) {
           modifyEventForTouch(e);
-        }
-        else if (e.which !== 1) {
+        } else if (e.which !== 1) {
           return;
         }
 
