@@ -9,23 +9,22 @@
   <script src="draggable_background.js"></script>
   <script>
     $(function() {
-      $('#default').backgroundDraggable()
-      $('#unbounded').backgroundDraggable({ bound: false })
-      $('#x').backgroundDraggable({ axis: 'x' })
-      $('#y').backgroundDraggable({ axis: 'y' })
+      $('#default').backgroundDraggable();
+      $('#unbounded').backgroundDraggable({ bound: false });
+      $('#x').backgroundDraggable({ axis: 'x' });
+      $('#y').backgroundDraggable({ axis: 'y' });
 
       $('div').each(function() {
-        var $this = $(this)
-          , html = $this.html()
+        var $this = $(this),
+            html = $this.html();
         $this.empty().append($('<p>').html(html))
-      })
-    })
+      });
+    });
   </script>
 </head>
 <body>
   <div id="default" style="background:url('http://pipsum.com/640x480.jpg')">default</div>
   <div id="unbounded" style="background:url('http://pipsum.com/640x480.jpg')">bound: false</div>
-  <div id="unbounded" style="background:url('http://pipsum.com/640x640.jpg');background-size: cover">cover</div>
   <br><br>
   <div id="x" style="background:url('http://pipsum.com/2560x240.jpg')">axis: 'x'</div>
   <div id="y" style="background:url('http://pipsum.com/320x1600.jpg')">axis: 'y'</div>
