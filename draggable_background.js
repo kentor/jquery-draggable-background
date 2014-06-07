@@ -44,7 +44,7 @@
           img.height = i.height;
         };
         i.src = bgSrc;
-      };
+      }
 
       $this.on('mousedown.dbg touchstart.dbg', function(e) {
         e.preventDefault();
