@@ -30,16 +30,20 @@ A jQuery plugin to make background images draggable.
 ## Usage
 ```js
 // default options
-$('div').backgroundDraggable()
+$('div').backgroundDraggable();
 
 // only draggable in the x direction, and dragging is not bounded by the image
-$('div').backgroundDraggable({ bound: false, axis: 'x' })
+$('div').backgroundDraggable({ bound: false, axis: 'x' });
 ```
 
 ## Demo
 http://kentor.github.com/jquery-draggable-background/
 
 ## Changelog
+
+v1.2 [2014-06-06]
+- Refactored code to use semicolons.
+- Support for `background-size: cover`.
 
 v1.1 [2013-05-19]
 - Touch support.
