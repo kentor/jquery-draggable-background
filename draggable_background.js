@@ -26,6 +26,41 @@
     e.clientY = e.originalEvent.touches[0].clientY;
   };
 
+  var getBackgroundImageDimensions = function($el) {
+    var bgSrc = ($el.css('background-image').match(/^url\(['"]?(.*?)['"]?\)$/i) || [])[1];
+    if (!bgSrc) return;
+
+    var bgSize = $el.css('background-size'),
+        imageDimensions = { width: 0, height: 0 },
+        image = new Image();
+
+    image.onload = function() {
+      if (bgSize == "cover") {
+        var elementWidth = $el.innerWidth(),
+            elementHeight = $el.innerHeight(),
+            elementAspectRatio = elementWidth / elementHeight;
+            imageAspectRatio = image.width / image.height,
+            scale = 1;
+
+        if (imageAspectRatio >= elementAspectRatio) {
+          scale = elementHeight / image.height;
+        } else {
+          scale = elementWidth / image.width;
+        }
+
+        imageDimensions.width = image.width * scale;
+        imageDimensions.height = image.height * scale;
+      } else {
+        imageDimensions.width = image.width;
+        imageDimensions.height = image.height;
+      }
+    };
+
+    image.src = bgSrc;
+
+    return imageDimensions;
+  };
+
   $.fn.backgroundDraggable = function(options) {
     var options = $.extend({}, $.fn.backgroundDraggable.defaults, options);
 
@@ -36,14 +71,9 @@
       if (!bgSrc) return;
 
       // Get the image's width and height if bound
-      var img = { width: 0, height: 0 };
+      var imageDimensions = { width: 0, height: 0 };
       if (options.bound) {
-        var i = new Image();
-        i.onload = function() {
-          img.width = i.width;
-          img.height = i.height;
-        };
-        i.src = bgSrc;
+        imageDimensions = getBackgroundImageDimensions($this);
       }
 
       $this.on('mousedown.dbg touchstart.dbg', function(e) {
@@ -71,8 +101,8 @@
           var x = e.clientX,
               y = e.clientY;
 
-          xPos = options.axis === 'y' ? xPos : limit($this.innerWidth()-img.width, 0, xPos+x-x0, options.bound);
-          yPos = options.axis === 'x' ? yPos : limit($this.innerHeight()-img.height, 0, yPos+y-y0, options.bound);
+          xPos = options.axis === 'y' ? xPos : limit($this.innerWidth()-imageDimensions.width, 0, xPos+x-x0, options.bound);
+          yPos = options.axis === 'x' ? yPos : limit($this.innerHeight()-imageDimensions.height, 0, yPos+y-y0, options.bound);
           x0 = x;
           y0 = y;
 
