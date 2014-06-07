@@ -62,7 +62,7 @@
   };
 
   $.fn.backgroundDraggable = function(options) {
-    var options = $.extend({}, $.fn.backgroundDraggable.defaults, options);
+    options = $.extend({}, $.fn.backgroundDraggable.defaults, options);
 
     return this.each(function() {
       var $this = $(this),
