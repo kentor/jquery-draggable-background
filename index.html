@@ -9,7 +9,13 @@
   <script src="draggable_background.js"></script>
   <script>
     $(function() {
-      $('#default').backgroundDraggable();
+      
+       var draggable = $('#default').backgroundDraggable();
+      
+
+      $("#btn1").on("click", function(){
+          draggable.scrollTo(-50, -50);
+      });
       $('#unbounded').backgroundDraggable({ bound: false });
       $('#x').backgroundDraggable({ axis: 'x' });
       $('#y').backgroundDraggable({ axis: 'y' });
@@ -24,6 +30,7 @@
 </head>
 <body>
   <div id="default" style="background:url('http://pipsum.com/640x480.jpg')">default</div>
+  <button id="btn1">50,50</button>
   <div id="unbounded" style="background:url('http://pipsum.com/640x480.jpg')">bound: false</div>
   <br><br>
   <div id="x" style="background:url('http://pipsum.com/2560x240.jpg')">axis: 'x'</div>

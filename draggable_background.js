@@ -62,9 +62,15 @@
   };
 
   $.fn.backgroundDraggable = function(options) {
+    this.data('backgroundDraggable', $.extend(true, {}, $.fn.backgroundDraggable.defaults, options));
+    if (this.length > 1){
+        this.each(function() { $(this).myPlugin(options) });
+        return this;
+    }
+
     options = $.extend({}, $.fn.backgroundDraggable.defaults, options);
 
-    return this.each(function() {
+  
       var $this = $(this),
           bgSrc = ($this.css('background-image').match(/^url\(['"]?(.*?)['"]?\)$/i) || [])[1];
 
@@ -111,7 +117,23 @@
       });
 
       $window.on('mouseup.dbg touchend.dbg', function() { $window.off('mousemove.dbg touchmove.dbg'); });
-    });
+
+       this.initialize = function() {  
+       
+          return this;
+      };
+
+    this.scrollTo = function(xVal, yVal) {
+       
+          $this.css('background-position', xVal + 'px ' + yVal + 'px');
+
+    };
+
+    return this.initialize();
+
+
+       
+   
   };
 
   $.fn.backgroundDraggable.defaults = {
