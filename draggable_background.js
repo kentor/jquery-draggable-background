@@ -9,113 +9,114 @@
  *   http://www.opensource.org/licenses/mit-license.php
  */
 ;(function($) {
-  var $window = $(window);
+    var $window = $(window);
 
-  // Helper function to guarantee a value between low and hi unless bool is false
-  var limit = function(low, hi, value, bool) {
-    if (arguments.length === 3 || bool) {
-      if (value < low) return low;
-      if (value > hi) return hi;
-    }
-    return value;
-  };
-
-  // Adds clientX and clientY properties to the jQuery's event object from touch
-  var modifyEventForTouch = function(e) {
-    e.clientX = e.originalEvent.touches[0].clientX;
-    e.clientY = e.originalEvent.touches[0].clientY;
-  };
-
-  var getBackgroundImageDimensions = function($el) {
-    var bgSrc = ($el.css('background-image').match(/^url\(['"]?(.*?)['"]?\)$/i) || [])[1];
-    if (!bgSrc) return;
-
-    var bgSize = $el.css('background-size'),
-        imageDimensions = { width: 0, height: 0 },
-        image = new Image();
-
-    image.onload = function() {
-      if (bgSize == "cover") {
-        var elementWidth = $el.innerWidth(),
-            elementHeight = $el.innerHeight(),
-            elementAspectRatio = elementWidth / elementHeight;
-            imageAspectRatio = image.width / image.height,
-            scale = 1;
-
-        if (imageAspectRatio >= elementAspectRatio) {
-          scale = elementHeight / image.height;
-        } else {
-          scale = elementWidth / image.width;
+    // Helper function to guarantee a value between low and hi unless bool is false
+    var limit = function(low, hi, value, bool) {
+        if (arguments.length === 3 || bool) {
+            if (value < low) return low;
+            if (value > hi) return hi;
         }
-
-        imageDimensions.width = image.width * scale;
-        imageDimensions.height = image.height * scale;
-      } else {
-        imageDimensions.width = image.width;
-        imageDimensions.height = image.height;
-      }
+        return value;
     };
 
-    image.src = bgSrc;
+    // Adds clientX and clientY properties to the jQuery's event object from touch
+    var modifyEventForTouch = function(e) {
+        e.clientX = e.originalEvent.touches[0].clientX;
+        e.clientY = e.originalEvent.touches[0].clientY;
+    };
 
-    return imageDimensions;
-  };
+    var getBackgroundImageDimensions = function($el, backgroundUrl) {
+        var bgSrc = backgroundUrl ? backgroundUrl : ($el.css('background-image').match(/^url\(['"]?(.*?)['"]?\)$/i) || [])[1];
+        if (!bgSrc) return;
 
-  $.fn.backgroundDraggable = function(options) {
-    options = $.extend({}, $.fn.backgroundDraggable.defaults, options);
+        var bgSize = $el.css('background-size'),
+            imageDimensions = { width: 0, height: 0 },
+            image = new Image();
 
-    return this.each(function() {
-      var $this = $(this),
-          bgSrc = ($this.css('background-image').match(/^url\(['"]?(.*?)['"]?\)$/i) || [])[1];
+        image.onload = function() {
+            if (bgSize == "cover") {
+                var elementWidth = $el.innerWidth(),
+                    elementHeight = $el.innerHeight(),
+                    elementAspectRatio = elementWidth / elementHeight;
+                imageAspectRatio = image.width / image.height,
+                    scale = 1;
 
-      if (!bgSrc) return;
+                if (imageAspectRatio >= elementAspectRatio) {
+                    scale = elementHeight / image.height;
+                } else {
+                    scale = elementWidth / image.width;
+                }
 
-      // Get the image's width and height if bound
-      var imageDimensions = { width: 0, height: 0 };
-      if (options.bound) {
-        imageDimensions = getBackgroundImageDimensions($this);
-      }
+                imageDimensions.width = image.width * scale;
+                imageDimensions.height = image.height * scale;
+            } else {
+                imageDimensions.width = image.width;
+                imageDimensions.height = image.height;
+            }
+        };
 
-      $this.on('mousedown.dbg touchstart.dbg', function(e) {
-        e.preventDefault();
+        image.src = bgSrc;
 
-        if (e.originalEvent.touches) {
-          modifyEventForTouch(e);
-        } else if (e.which !== 1) {
-          return;
-        }
+        return imageDimensions;
+    };
 
-        var x0 = e.clientX,
-            y0 = e.clientY,
-            pos = $this.css('background-position').match(/(-?\d+).*?\s(-?\d+)/) || [],
-            xPos = parseInt(pos[1]) || 0,
-            yPos = parseInt(pos[2]) || 0;
+    $.fn.backgroundDraggable = function(options) {
+        options = $.extend({}, $.fn.backgroundDraggable.defaults, options);
 
-        $window.on('mousemove.dbg touchmove.dbg', function(e) {
-          e.preventDefault();
+        return this.each(function() {
+            var $this = $(this),
+                bgSrc = options.url ? options.url : ($this.css('background-image').match(/^url\(['"]?(.*?)['"]?\)$/i) || [])[1];
 
-          if (e.originalEvent.touches) {
-            modifyEventForTouch(e);
-          }
+            if (!bgSrc) return;
 
-          var x = e.clientX,
-              y = e.clientY;
+            // Get the image's width and height if bound
+            var imageDimensions = { width: 0, height: 0 };
+            if (options.bound) {
+                imageDimensions = getBackgroundImageDimensions($this, options.url);
+            }
 
-          xPos = options.axis === 'y' ? xPos : limit($this.innerWidth()-imageDimensions.width, 0, xPos+x-x0, options.bound);
-          yPos = options.axis === 'x' ? yPos : limit($this.innerHeight()-imageDimensions.height, 0, yPos+y-y0, options.bound);
-          x0 = x;
-          y0 = y;
+            $this.on('mousedown.dbg touchstart.dbg', function(e) {
+                e.preventDefault();
 
-          $this.css('background-position', xPos + 'px ' + yPos + 'px');
+                if (e.originalEvent.touches) {
+                    modifyEventForTouch(e);
+                } else if (e.which !== 1) {
+                    return;
+                }
+
+                var x0 = e.clientX,
+                    y0 = e.clientY,
+                    pos = $this.css('background-position').match(/(-?\d+).*?\s(-?\d+)/) || [],
+                    xPos = parseInt(pos[1]) || 0,
+                    yPos = parseInt(pos[2]) || 0;
+
+                $window.on('mousemove.dbg touchmove.dbg', function(e) {
+                    e.preventDefault();
+
+                    if (e.originalEvent.touches) {
+                        modifyEventForTouch(e);
+                    }
+
+                    var x = e.clientX,
+                        y = e.clientY;
+
+                    xPos = options.axis === 'y' ? xPos : limit($this.innerWidth()-imageDimensions.width, 0, xPos+x-x0, options.bound);
+                    yPos = options.axis === 'x' ? yPos : limit($this.innerHeight()-imageDimensions.height, 0, yPos+y-y0, options.bound);
+                    x0 = x;
+                    y0 = y;
+
+                    $this.css('background-position', xPos + 'px ' + yPos + 'px');
+                });
+            });
+
+            $window.on('mouseup.dbg touchend.dbg', function() { $window.off('mousemove.dbg touchmove.dbg'); });
         });
-      });
+    };
 
-      $window.on('mouseup.dbg touchend.dbg', function() { $window.off('mousemove.dbg touchmove.dbg'); });
-    });
-  };
-
-  $.fn.backgroundDraggable.defaults = {
-    bound: true,
-    axis: undefined
-  };
+    $.fn.backgroundDraggable.defaults = {
+        bound: true,
+        axis: undefined,
+        url: undefined
+    };
 }(jQuery));
