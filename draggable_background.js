@@ -26,10 +26,7 @@
         e.clientY = e.originalEvent.touches[0].clientY;
     };
 
-    var getBackgroundImageDimensions = function($el, backgroundUrl) {
-        var bgSrc = backgroundUrl ? backgroundUrl : ($el.css('background-image').match(/^url\(['"]?(.*?)['"]?\)$/i) || [])[1];
-        if (!bgSrc) return;
-
+    var getBackgroundImageDimensions = function($el, bgSrc) {
         var bgSize = $el.css('background-size'),
             imageDimensions = { width: 0, height: 0 },
             image = new Image();
@@ -73,7 +70,7 @@
             // Get the image's width and height if bound
             var imageDimensions = { width: 0, height: 0 };
             if (options.bound) {
-                imageDimensions = getBackgroundImageDimensions($this, options.url);
+                imageDimensions = getBackgroundImageDimensions($this, bgSrc);
             }
 
             $this.on('mousedown.dbg touchstart.dbg', function(e) {
