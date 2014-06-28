@@ -25,6 +25,13 @@ A jQuery plugin to make background images draggable.
     <td></td>
     <td>If specified, restrict dragging along x or y axis.</td>
   </tr>
+  <tr>
+    <td>url</td>
+    <td>String</td>
+    <td>-</td>
+    <td>undefined</td>
+    <td>If not specified, it defaults to the background-url property of the element. This does **not** replace the background image. Useful when the url is injected at a later stage.</td>
+  </tr>
 </table>
 
 ## Usage
@@ -34,6 +41,9 @@ $('div').backgroundDraggable();
 
 // only draggable in the x direction, and dragging is not bounded by the image
 $('div').backgroundDraggable({ bound: false, axis: 'x' });
+
+// provide the image url based on which position is calculated
+$('div').backgroundDraggable({url: 'my_url'});
 ```
 
 ## Demo
