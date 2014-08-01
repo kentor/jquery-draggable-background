@@ -68,8 +68,8 @@
   }
 
   Plugin.prototype.init = function() {
-    var $this = $(this.element),
-        bgSrc = ($this.css('background-image').match(/^url\(['"]?(.*?)['"]?\)$/i) || [])[1],
+    var $el = $(this.element),
+        bgSrc = ($el.css('background-image').match(/^url\(['"]?(.*?)['"]?\)$/i) || [])[1],
         options = this.options;
 
     if (!bgSrc) return;
@@ -77,10 +77,10 @@
     // Get the image's width and height if bound
     var imageDimensions = { width: 0, height: 0 };
     if (options.bound) {
-      imageDimensions = getBackgroundImageDimensions($this);
+      imageDimensions = getBackgroundImageDimensions($el);
     }
 
-    $this.on('mousedown.dbg touchstart.dbg', function(e) {
+    $el.on('mousedown.dbg touchstart.dbg', function(e) {
       e.preventDefault();
 
       if (e.originalEvent.touches) {
@@ -91,7 +91,7 @@
 
       var x0 = e.clientX,
           y0 = e.clientY,
-          pos = $this.css('background-position').match(/(-?\d+).*?\s(-?\d+)/) || [],
+          pos = $el.css('background-position').match(/(-?\d+).*?\s(-?\d+)/) || [],
           xPos = parseInt(pos[1]) || 0,
           yPos = parseInt(pos[2]) || 0;
 
@@ -105,17 +105,17 @@
         var x = e.clientX,
             y = e.clientY;
 
-        xPos = options.axis === 'y' ? xPos : limit($this.innerWidth()-imageDimensions.width, 0, xPos+x-x0, options.bound);
-        yPos = options.axis === 'x' ? yPos : limit($this.innerHeight()-imageDimensions.height, 0, yPos+y-y0, options.bound);
+        xPos = options.axis === 'y' ? xPos : limit($el.innerWidth()-imageDimensions.width, 0, xPos+x-x0, options.bound);
+        yPos = options.axis === 'x' ? yPos : limit($el.innerHeight()-imageDimensions.height, 0, yPos+y-y0, options.bound);
         x0 = x;
         y0 = y;
 
-        $this.css('background-position', xPos + 'px ' + yPos + 'px');
+        $el.css('background-position', xPos + 'px ' + yPos + 'px');
       });
     });
 
     $window.on('mouseup.dbg touchend.dbg', function() { $window.off('mousemove.dbg touchmove.dbg'); });
-  }
+  };
 
   $.fn.backgroundDraggable = function(options) {
     var options = options;
