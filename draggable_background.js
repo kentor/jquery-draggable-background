@@ -61,12 +61,16 @@
     return imageDimensions;
   };
 
-  $.fn.backgroundDraggable = function(options) {
-    options = $.extend({}, $.fn.backgroundDraggable.defaults, options);
+  function Plugin(element, options) {
+    this.element = element;
+    this.options = options;
+    this.init();
+  }
 
-    return this.each(function() {
-      var $this = $(this),
-          bgSrc = ($this.css('background-image').match(/^url\(['"]?(.*?)['"]?\)$/i) || [])[1];
+  Plugin.prototype.init = function() {
+      var $this = $(this.element),
+          bgSrc = ($this.css('background-image').match(/^url\(['"]?(.*?)['"]?\)$/i) || [])[1],
+          options = this.options;
 
       if (!bgSrc) return;
 
@@ -111,6 +115,23 @@
       });
 
       $window.on('mouseup.dbg touchend.dbg', function() { $window.off('mousemove.dbg touchmove.dbg'); });
+  }
+
+  $.fn.backgroundDraggable = function(options) {
+    var options = options;
+    var args = Array.prototype.slice.call(arguments, 1);
+
+    return this.each(function() {
+      $this = $(this);
+
+      if (typeof options == 'undefined' || typeof options == 'object') {
+        options = $.extend({}, $.fn.backgroundDraggable.defaults, options);
+        var plugin = new Plugin(this, options);
+        $this.data('dbg', plugin);
+      } else if (typeof options == 'string' && $this.data('dbg')) {
+        var plugin = $this.data('dbg');
+        Plugin.prototype[options].apply(plugin, args);
+      }
     });
   };
 
