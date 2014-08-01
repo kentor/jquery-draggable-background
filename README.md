@@ -44,6 +44,9 @@ http://kentor.github.com/jquery-draggable-background/
 
 ## Changelog
 
+v1.2.1 [2014-08-01]
+- Added support for disabling plugin
+
 v1.2 [2014-06-06]
 - Refactored code to use semicolons.
 - Support for `background-size: cover`.
