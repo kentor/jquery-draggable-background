@@ -34,6 +34,9 @@ $('div').backgroundDraggable();
 
 // only draggable in the x direction, and dragging is not bounded by the image
 $('div').backgroundDraggable({ bound: false, axis: 'x' });
+
+// disable draggable background
+$('div').backgroundDraggable('disable');
 ```
 
 ## Demo

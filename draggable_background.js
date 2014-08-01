@@ -117,6 +117,11 @@
     $window.on('mouseup.dbg touchend.dbg', function() { $window.off('mousemove.dbg touchmove.dbg'); });
   };
 
+  Plugin.prototype.disable = function() {
+    var $el = $(this.element);
+    $el.off('mouseup.dbg mousedown.dbg touchstart.dbg touchend.dbg');
+  }
+
   $.fn.backgroundDraggable = function(options) {
     var options = options;
     var args = Array.prototype.slice.call(arguments, 1);
