@@ -79,6 +79,7 @@
     if (options.bound) {
       imageDimensions = getBackgroundImageDimensions($el);
     }
+    $el.css('background-position', this.options.initialXPos + 'px ' + this.options.initialYPos + 'px');
 
     $el.on('mousedown.dbg touchstart.dbg', function(e) {
       e.preventDefault();
@@ -142,6 +143,8 @@
 
   $.fn.backgroundDraggable.defaults = {
     bound: true,
-    axis: undefined
+    axis: undefined,
+    initialXPos: 0,
+    initialYPos: 0
   };
 }(jQuery));
