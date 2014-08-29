@@ -30,8 +30,7 @@
     var bgSrc = ($el.css('background-image').match(/^url\(['"]?(.*?)['"]?\)$/i) || [])[1];
     if (!bgSrc) return;
 
-    var bgSize = $el.css('background-size'),
-        imageDimensions = { width: 0, height: 0 },
+    var imageDimensions = { width: 0, height: 0 },
         image = new Image();
 
     image.onload = function() {
@@ -114,7 +113,14 @@
       });
     });
 
-    $window.on('mouseup.dbg touchend.dbg', function() { $window.off('mousemove.dbg touchmove.dbg'); });
+    $el.on('mouseup.dbg touchend.dbg', function() {
+      if (options.done) {
+        options.done();
+      }
+
+      $el.off('mousemove.dbg touchmove.dbg');
+      $window.off('mousemove.dbg touchmove.dbg');
+    });
   };
 
   Plugin.prototype.disable = function() {

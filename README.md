@@ -37,6 +37,13 @@ $('div').backgroundDraggable({ bound: false, axis: 'x' });
 
 // disable draggable background
 $('div').backgroundDraggable('disable');
+
+// callback when drag complete
+$('div').backgroundDraggable({
+  done: function() {
+    console.log('dragging complete');
+  }
+});
 ```
 
 ## Demo
