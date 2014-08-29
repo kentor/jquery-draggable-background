@@ -113,19 +113,19 @@
       });
     });
 
-    $el.on('mouseup.dbg touchend.dbg', function() {
+    $el.on('mouseup.dbg touchend.dbg mouseleave.dbg', function() {
       if (options.done) {
         options.done();
       }
 
-      $el.off('mousemove.dbg touchmove.dbg');
       $window.off('mousemove.dbg touchmove.dbg');
     });
   };
 
   Plugin.prototype.disable = function() {
     var $el = $(this.element);
-    $el.off('mouseup.dbg mousedown.dbg touchstart.dbg touchend.dbg');
+    $el.off('mouseup.dbg mousedown.dbg touchstart.dbg touchend.dbg mouseleave.dbg');
+    $window.off('mousemove.dbg touchmove.dbg');
   }
 
   $.fn.backgroundDraggable = function(options) {

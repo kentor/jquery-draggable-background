@@ -41,7 +41,8 @@ $('div').backgroundDraggable('disable');
 // callback when drag complete
 $('div').backgroundDraggable({
   done: function() {
-    console.log('dragging complete');
+    backgroundPosition = $('div').css('background-position');
+    console.log(backgroundPosition);
   }
 });
 ```
