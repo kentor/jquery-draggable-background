@@ -34,7 +34,7 @@
         image = new Image();
 
     image.onload = function() {
-      if (bgSize == "cover") {
+      if ($el.css('background-size') == "cover") {
         var elementWidth = $el.innerWidth(),
             elementHeight = $el.innerHeight(),
             elementAspectRatio = elementWidth / elementHeight;
