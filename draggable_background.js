@@ -30,12 +30,11 @@
     var bgSrc = ($el.css('background-image').match(/^url\(['"]?(.*?)['"]?\)$/i) || [])[1];
     if (!bgSrc) return;
 
-    var bgSize = $el.css('background-size'),
-        imageDimensions = { width: 0, height: 0 },
+    var imageDimensions = { width: 0, height: 0 },
         image = new Image();
 
     image.onload = function() {
-      if (bgSize == "cover") {
+      if ($el.css('background-size') == "cover") {
         var elementWidth = $el.innerWidth(),
             elementHeight = $el.innerHeight(),
             elementAspectRatio = elementWidth / elementHeight;
@@ -114,12 +113,19 @@
       });
     });
 
-    $window.on('mouseup.dbg touchend.dbg', function() { $window.off('mousemove.dbg touchmove.dbg'); });
+    $el.on('mouseup.dbg touchend.dbg mouseleave.dbg', function() {
+      if (options.done) {
+        options.done();
+      }
+
+      $window.off('mousemove.dbg touchmove.dbg');
+    });
   };
 
   Plugin.prototype.disable = function() {
     var $el = $(this.element);
-    $el.off('mouseup.dbg mousedown.dbg touchstart.dbg touchend.dbg');
+    $el.off('mouseup.dbg mousedown.dbg touchstart.dbg touchend.dbg mouseleave.dbg');
+    $window.off('mousemove.dbg touchmove.dbg');
   }
 
   $.fn.backgroundDraggable = function(options) {
