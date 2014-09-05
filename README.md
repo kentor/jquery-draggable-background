@@ -25,6 +25,13 @@ A jQuery plugin to make background images draggable.
     <td></td>
     <td>If specified, restrict dragging along x or y axis.</td>
   </tr>
+  <tr>
+    <td>done</td>
+    <td>Function</td>
+    <td></td>
+    <td></td>
+    <td>Called when dragging is stopped by mouseup, touchup, or mouseleave.</td>
+  </tr>
 </table>
 
 ## Usage
@@ -51,6 +58,9 @@ $('div').backgroundDraggable({
 http://kentor.github.com/jquery-draggable-background/
 
 ## Changelog
+
+v1.2.2 [2014-09-01]
+- Added support for a callback when dragging is finished.
 
 v1.2.1 [2014-08-01]
 - Added support for disabling plugin
