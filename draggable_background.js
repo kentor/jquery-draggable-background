@@ -9,7 +9,12 @@
  *   http://www.opensource.org/licenses/mit-license.php
  */
 ;(function($) {
-  var $window = $(window);
+  var isIE = function() {
+    var myNav = navigator.userAgent.toLowerCase();
+    return (myNav.indexOf('msie') != -1) ? parseInt(myNav.split('msie')[1]) : false;
+  };
+
+  var $window = (isIE() === 8) ? $(document) : $(window);
 
   // Helper function to guarantee a value between low and hi unless bool is false
   var limit = function(low, hi, value, bool) {
