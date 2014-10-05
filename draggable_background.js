@@ -133,7 +133,7 @@
     var args = Array.prototype.slice.call(arguments, 1);
 
     return this.each(function() {
-      $this = $(this);
+      var $this = $(this);
 
       if (typeof options == 'undefined' || typeof options == 'object') {
         options = $.extend({}, $.fn.backgroundDraggable.defaults, options);
