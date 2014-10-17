@@ -62,6 +62,10 @@ IE9+. Only `background-size` value of `auto` (default) and `cover` are supported
 
 ## Changelog
 
+v1.2.3 [2014-10-17]
+- Fixed child elements of element with background dragging calling `preventDefault` (7f17318).
+- Improved behavior of dragging, especially when mouse up happens outside the window (d1fdbe4).
+
 v1.2.2 [2014-09-01]
 - Added support for a callback when dragging is finished.
 
@@ -81,6 +85,6 @@ v1.0 [2012-09-23]
 
 ## License
 
-Copyright (c) 2012 Kenneth Chung
+Copyright (c) 2014 Kenneth Chung
 
 Licensed under the [MIT](http://www.opensource.org/licenses/mit-license.php) license.
