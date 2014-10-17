@@ -127,8 +127,8 @@
 
   Plugin.prototype.disable = function() {
     var $el = $(this.element);
-    $el.off('mouseup.dbg mousedown.dbg touchstart.dbg touchend.dbg mouseleave.dbg');
-    $window.off('mousemove.dbg touchmove.dbg');
+    $el.off('mousedown.dbg touchstart.dbg');
+    $window.off('mousemove.dbg touchmove.dbg mouseup.dbg touchend.dbg mouseleave.dbg');
   }
 
   $.fn.backgroundDraggable = function(options) {
