@@ -80,6 +80,9 @@
     }
 
     $el.on('mousedown.dbg touchstart.dbg', function(e) {
+      if (e.target !== $el[0]) {
+        return;
+      }
       e.preventDefault();
 
       if (e.originalEvent.touches) {
