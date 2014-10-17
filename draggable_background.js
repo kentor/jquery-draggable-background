@@ -114,14 +114,14 @@
 
         $el.css('background-position', xPos + 'px ' + yPos + 'px');
       });
-    });
 
-    $el.on('mouseup.dbg touchend.dbg mouseleave.dbg', function() {
-      if (options.done) {
-        options.done();
-      }
+      $window.one('mouseup.dbg touchend.dbg mouseleave.dbg', function() {
+        if (options.done) {
+          options.done();
+        }
 
-      $window.off('mousemove.dbg touchmove.dbg');
+        $window.off('mousemove.dbg touchmove.dbg');
+      });
     });
   };
 
