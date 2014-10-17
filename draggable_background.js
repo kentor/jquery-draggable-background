@@ -3,7 +3,7 @@
  *
  * v1.2.2
  *
- * Copyright (c) 2012 Kenneth Chung
+ * Copyright (c) 2014 Kenneth Chung
  *
  * Licensed under the MIT license:
  *   http://www.opensource.org/licenses/mit-license.php
