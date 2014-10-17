@@ -57,6 +57,9 @@ $('div').backgroundDraggable({
 ## Demo
 http://kentor.github.com/jquery-draggable-background/
 
+## Support
+IE9+. Only `background-size` value of `auto` (default) and `cover` are supported. `background-position` must be absolute pixels. There will be bugs if you use `center` for percentages.
+
 ## Changelog
 
 v1.2.2 [2014-09-01]
