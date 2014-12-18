@@ -115,12 +115,13 @@
         $el.css('background-position', xPos + 'px ' + yPos + 'px');
       });
 
-      $window.one('mouseup.dbg touchend.dbg mouseleave.dbg', function() {
+      $window.on('mouseup.dbg touchend.dbg mouseleave.dbg', function() {
         if (options.done) {
           options.done();
         }
 
         $window.off('mousemove.dbg touchmove.dbg');
+        $window.off('mouseup.dbg touchend.dbg mouseleave.dbg');
       });
     });
   };
