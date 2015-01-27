@@ -26,6 +26,13 @@ A jQuery plugin to make background images draggable.
     <td>Whether dragging is triggered by inner elements.</td>
   </tr>
   <tr>
+    <td>frame</td>
+    <td>Integer</td>
+    <td></td>
+    <td></td>
+    <td>If specified, restrict dragging to an inner frame. Don't let background get out of container boundaries</td>
+  </tr>
+  <tr>
     <td>axis</td>
     <td>String</td>
     <td>x|y</td>
@@ -48,6 +55,9 @@ $('div').backgroundDraggable();
 
 // only draggable in the x direction, and dragging is not bounded by the image
 $('div').backgroundDraggable({ bound: false, axis: 'x' });
+
+// limit background position to an inner frame 50px from each side
+$('div').backgroundDraggable({ frame: 50 });
 
 // disable draggable background
 $('div').backgroundDraggable('disable');
