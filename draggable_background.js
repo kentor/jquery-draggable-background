@@ -80,7 +80,7 @@
     }
 
     $el.on('mousedown.dbg touchstart.dbg', function(e) {
-      if (e.target !== $el[0]) {
+      if (!options.propagate && e.target !== $el[0]) {
         return;
       }
       e.preventDefault();
@@ -152,6 +152,7 @@
 
   $.fn.backgroundDraggable.defaults = {
     bound: true,
+    propagate: false,
     axis: undefined
   };
 }(jQuery));
