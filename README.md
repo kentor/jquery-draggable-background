@@ -2,6 +2,13 @@
 
 A jQuery plugin to make background images draggable.
 
+**NOTE:** I don't plan to maintain this library anymore since I've moved on
+from jQuery. There seems to be requests for supporting different options
+for background-size or different units for background-position. After looking
+at the css spec for these properties, it seems unmaintainable to support every
+possible configuration, so I would encourage you to fork this and shape it to
+your specific needs.
+
 ## Configuration
 <table>
   <tr>
