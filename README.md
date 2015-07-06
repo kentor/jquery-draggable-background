@@ -33,6 +33,13 @@ your specific needs.
     <td>If specified, restrict dragging along x or y axis.</td>
   </tr>
   <tr>
+    <td>units</td>
+    <td>String</td>
+    <td>pixels|percent</td>
+    <td>pixels</td>
+    <td>If the plugin should set the background position using pixels or percentages. Percentages are useful if your image area is responsive and may change size but retain the aspect ratio.</td>
+  </tr>
+  <tr>
     <td>done</td>
     <td>Function</td>
     <td></td>

@@ -13,6 +13,8 @@
       $('#unbounded').backgroundDraggable({ bound: false });
       $('#x').backgroundDraggable({ axis: 'x' });
       $('#y').backgroundDraggable({ axis: 'y' });
+      $('#pixels').backgroundDraggable({ units: 'pixels' });
+      $('#percent').backgroundDraggable({ units: 'percent' });
 
       $('div').each(function() {
         var $this = $(this),
@@ -28,5 +30,8 @@
   <br><br>
   <div id="x" style="background:url('http://pipsum.com/2560x240.jpg')">axis: 'x'</div>
   <div id="y" style="background:url('http://pipsum.com/320x1600.jpg')">axis: 'y'</div>
+  <br><br>
+  <div id="pixels" style="background:url('http://pipsum.com/720x640.jpg')">units: 'pixels'</div>
+  <div id="percent" style="background:url('http://pipsum.com/720x640.jpg')">units: 'percent'</div>
 </body>
 </html>
