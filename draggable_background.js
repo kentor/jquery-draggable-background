@@ -79,8 +79,13 @@
       imageDimensions = getBackgroundImageDimensions($el);
     }
 
+    var boundaries = {
+      x: { lo: $el.innerWidth(),  hi: 0},
+      y: { lo: $el.innerHeight(), hi: 0}
+    };
+
     $el.on('mousedown.dbg touchstart.dbg', function(e) {
-      if (e.target !== $el[0]) {
+      if (!options.propagate && e.target !== $el[0]) {
         return;
       }
       e.preventDefault();
@@ -89,6 +94,18 @@
         modifyEventForTouch(e);
       } else if (e.which !== 1) {
         return;
+      }
+
+      if (options.bound) {
+        boundaries.x.lo = $el.innerWidth() -  imageDimensions.width;
+        boundaries.y.lo = $el.innerHeight() - imageDimensions.height;
+
+        if (typeof(options.frame) === 'number') {
+          boundaries.x.lo = - imageDimensions.width + options.frame;
+          boundaries.x.hi = $el.innerWidth() - options.frame;
+          boundaries.y.lo = - imageDimensions.height + options.frame;
+          boundaries.y.hi = $el.innerHeight() - options.frame;
+        }
       }
 
       var x0 = e.clientX,
@@ -107,8 +124,8 @@
         var x = e.clientX,
             y = e.clientY;
 
-        xPos = options.axis === 'y' ? xPos : limit($el.innerWidth()-imageDimensions.width, 0, xPos+x-x0, options.bound);
-        yPos = options.axis === 'x' ? yPos : limit($el.innerHeight()-imageDimensions.height, 0, yPos+y-y0, options.bound);
+        xPos = options.axis === 'y' ? xPos : limit(boundaries.x.lo, boundaries.x.hi, xPos + x - x0, options.bound);
+        yPos = options.axis === 'x' ? yPos : limit(boundaries.y.lo, boundaries.y.hi, yPos + y - y0, options.bound);
         x0 = x;
         y0 = y;
 
@@ -152,6 +169,8 @@
 
   $.fn.backgroundDraggable.defaults = {
     bound: true,
+    propagate: false,
+    frame: undefined,
     axis: undefined
   };
 }(jQuery));

@@ -13,6 +13,8 @@
       $('#unbounded').backgroundDraggable({ bound: false });
       $('#x').backgroundDraggable({ axis: 'x' });
       $('#y').backgroundDraggable({ axis: 'y' });
+      $('#propagate').backgroundDraggable({ propagate: true });
+      $('#frame').backgroundDraggable({ frame: 50 });
 
       $('div').each(function() {
         var $this = $(this),
@@ -28,5 +30,8 @@
   <br><br>
   <div id="x" style="background:url('http://pipsum.com/2560x240.jpg')">axis: 'x'</div>
   <div id="y" style="background:url('http://pipsum.com/320x1600.jpg')">axis: 'y'</div>
+  <br><br>
+  <div id="propagate" style="background:url('http://pipsum.com/640x480.jpg')">propagate: true (drag from here)</div>
+  <div id="frame" style="background:#222 url('http://pipsum.com/640x480.jpg') no-repeat">frame: 50</div>
 </body>
 </html>
