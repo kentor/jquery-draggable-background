@@ -112,7 +112,7 @@
         x0 = x;
         y0 = y;
 
-        $el.css('background-position', xPos + 'px ' + yPos + 'px');
+        $el.css('background-position', Math.round(xPos) + 'px ' + Math.round(yPos) + 'px');
       });
 
       $window.on('mouseup.dbg touchend.dbg mouseleave.dbg', function() {
